@@ -37,7 +37,7 @@ existing database. You can use any stack you confident.
     - content
     - created_at
    
-   d. Like Table:
+   d. Likes Table:
      
     - like_id (Primary Key)
     - tweet_id (Foreign Key referencing Tweet table)
@@ -81,7 +81,7 @@ existing database. You can use any stack you confident.
       	FOREIGN KEY (user_id) REFERENCES User(user_id)
       );
       
-      CREATE TABLE Like (
+      CREATE TABLE Likes (
       	like_id INT PRIMARY KEY,
       	tweet_id INT,
       	user_id INT,
@@ -106,7 +106,7 @@ existing database. You can use any stack you confident.
       SELECT t.tweet_id, t.content, COUNT(r.reply_id) AS reply_count, COUNT(l.like_id) AS like_count, COUNT(rt.retweet_id) AS retweet_count
       FROM Tweet t
       LEFT JOIN Reply r ON t.tweet_id = r.tweet_id
-      LEFT JOIN Like l ON t.tweet_id = l.tweet_id
+      LEFT JOIN Likes l ON t.tweet_id = l.tweet_id
       LEFT JOIN Retweet rt ON t.tweet_id = rt.tweet_id
       WHERE t.user_id = <user_id>
       GROUP BY t.tweet_id, t.content;
@@ -117,7 +117,7 @@ existing database. You can use any stack you confident.
      ```
      SELECT t.tweet_id, t.content, u.username AS user_liked, u2.username AS user_retweeted, r.content AS reply_content
      FROM Tweet t
-     LEFT JOIN Like l ON t.tweet_id = l.tweet_id
+     LEFT JOIN Likes l ON t.tweet_id = l.tweet_id
      LEFT JOIN User u ON l.user_id = u.user_id
      LEFT JOIN Retweet rt ON t.tweet_id = rt.tweet_id
      LEFT JOIN User u2 ON rt.user_id = u2.user_id
@@ -135,7 +135,7 @@ existing database. You can use any stack you confident.
     - Tweet Dim: This dimension table contains tweet-related information, such as tweet_id, user_id (foreign key referencing User Dim), content, and created_at.
     - Date Dim: This dimension table contains date-related information, such as date_id and date. This table can be used to analyze trends and time-based metrics.
     - Reply Fact: This fact table captures the replies to tweets. It contains reply_id, tweet_id (foreign key referencing Tweet Dim), user_id (foreign key referencing User Dim), content, and created_at.
-    - Like Fact: This fact table captures the likes on tweets. It contains like_id, tweet_id (foreign key referencing Tweet Dim), user_id (foreign key referencing User Dim), and created_at.
+    - Likes Fact: This fact table captures the likes on tweets. It contains like_id, tweet_id (foreign key referencing Tweet Dim), user_id (foreign key referencing User Dim), and created_at.
     - Retweet Fact: This fact table captures the retweets of tweets. It contains retweet_id, tweet_id (foreign key referencing Tweet Dim), user_id (foreign key referencing User Dim), and created_at.
 
 5. This data warehouse diagram represents the dimensional model for the microblogging use-case, allowing for efficient analysis and reporting on various metrics related to users, tweets, replies, likes, and retweets.
