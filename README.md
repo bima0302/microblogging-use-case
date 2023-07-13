@@ -1,5 +1,5 @@
 # Microblogging Use Case
-My personal data engineer project of make a microblogging like twitter.
+My personal data engineer project to make a microblogging like twitter.
 
 ## Database Design for Microblogging Use-Case:
 1. Imagine your team will make a microblogging like twitter. People can tweet, reply, like,
